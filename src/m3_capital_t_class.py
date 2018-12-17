@@ -22,8 +22,8 @@ def main():
 
     run_test_simple_t()
     run_test_set_colors()
-    run_test_move_by()
-    # run_test_clone()
+    #run_test_move_by()
+    run_test_clone()
 
 
 def run_test_simple_t():
@@ -308,6 +308,8 @@ class CapitalT(object):
         # IMPORTANT RESTRICTION: You are NOT permitted to add any instance
         # variables beyond  h_rect  and  v_rect, at any point of this exercise.
         #######################################################################
+        self.v_rect=self.v_rect
+        self.h_rect=self.clone().h_rect
 
 
 # -----------------------------------------------------------------------------
