@@ -3,8 +3,8 @@ A   Baby   class and functions that use/test it.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Yu Xin.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 
 def main():
@@ -42,7 +42,7 @@ def main():
 
 
 ###############################################################################
-# TODO: 2.
+# DONE: 2.
 #
 #  Step 2a:  Implement a class called   Baby   that has a constructor method
 #            (__init__) and two other methods, as described below.
@@ -98,8 +98,30 @@ def main():
 #         'Baby <your baby's name> is CRYING uncontrollably!  Feed the Baby!'
 #
 ###############################################################################
+class Baby(object):
+    def __init__(self,a_name):
+        self.name=a_name
+        print("Hello baby",self.name,"!")
+        self.number_of_hours_passed=0
 
-###############################################################################
+    def feed_baby(self):
+        print("Thank you for feeding feeding baby",self.name,".")
+        self.number_of_hours_passed=0
+
+    def hour_passes(self):
+        self.number_of_hours_passed=self.number_of_hours_passed+1
+        if self.number_of_hours_passed==1:
+            print("Baby",self.name,"is sleeping.")
+        elif self.number_of_hours_passed==2 :
+            print("Baby",self.name,"is awake. Time for food.")
+        else:
+            print("Baby",self.name,"is CRYING uncontrollably! Feed the Baby!")
+
+
+
+
+
+##############################################################################
 # The   Baby   class (and its methods) should begins here.
 # Here is a reminder for the syntax to create a new class.
 #
