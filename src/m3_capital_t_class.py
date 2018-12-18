@@ -22,7 +22,7 @@ def main():
 
     run_test_simple_t()
     run_test_set_colors()
-    #run_test_move_by()
+    run_test_move_by()
     run_test_clone()
 
 
@@ -74,7 +74,6 @@ def run_test_move_by():
     window = rg.RoseWindow(600, 400, 'Test 3 - Moving T')
     little_red_t = CapitalT(rg.Point(300, 50), 60, 80, 5)
     little_red_t.set_colors('red', 'gray')
-    little_red_t.attach_to(window)
     window.render(0.5)
     little_red_t.move_by(0, 100)
     window.render(0.5)
@@ -170,8 +169,12 @@ class CapitalT(object):
         #   and *** NO OTHER INSTANCE VARIABLES. ***
         #   Note: Implement   attach_to   before testing this __init__ method.
         # ---------------------------------------------------------------------
-        self.h_rect=rg.Rectangle(rg.Point(intersection_center.x-width/2,intersection_center.y-letter_thickness/2),rg.Point(intersection_center.x+width/2,intersection_center.y+letter_thickness/2))
-        self.v_rect=rg.Rectangle(rg.Point(intersection_center.x-letter_thickness/2,intersection_center.y-letter_thickness/2+height),rg.Point(intersection_center.x+letter_thickness/2,intersection_center.y-letter_thickness/2))
+        self.h_rect=rg.Rectangle(rg.Point(intersection_center.x-width/2,intersection_center.y-letter_thickness/2),
+                                 rg.Point(intersection_center.x+width/2,intersection_center.y+letter_thickness/2))
+        self.v_rect=rg.Rectangle(rg.Point(intersection_center.x-letter_thickness/2
+                                          ,intersection_center.y-letter_thickness/2+height),
+                                 rg.Point(intersection_center.x+letter_thickness/2,
+                                          intersection_center.y-letter_thickness/2))
 
     def attach_to(self, window):
         """
@@ -272,7 +275,15 @@ class CapitalT(object):
         #        Note: the pdf shows the different locations that
         #        the T moves through, but there is only one T at any moment.
         # ---------------------------------------------------------------------
-        self=CapitalT(rg.Point(self.v_rect.get_center().x+dx,self.v_rect.get_center().y+dy),self.v_rect.get_width(),self.h_rect.get_height(),self.h_rect.get_width())
+        fill_color=self.v_rect.fill_color
+        outline_color=self.v_rect.outline_color
+        self.v_rect=rg.Rectangle(rg.Point(self.v_rect.corner_1.x+dx,self.v_rect.corner_1.y+dy),
+                                 rg.Point(self.v_rect.corner_2.x+dx,self.v_rect.corner_2.y+dy))
+        self.h_rect = rg.Rectangle(rg.Point(self.h_rect.corner_1.x + dx, self.h_rect.corner_1.y + dy),
+                                  rg.Point(self.h_rect.corner_2.x + dx, self.h_rect.corner_2.y + dy))
+        self.v_rect.fill_color=self.h_rect.fill_color=fill_color
+        self.v_rect.outline_color=self.h_rect.outline_color=outline_color
+
 
 
     def clone(self):
@@ -296,7 +307,7 @@ class CapitalT(object):
           :rtype: CapitalT
         """
         # ---------------------------------------------------------------------
-        # TODO: 7.
+        # DONE: 7.
         #   READ the above specification, including the Example.
         #   Implement this method, then TEST it by:
         #     a. Un-comment the call to its test function, in main.  Run.
@@ -308,8 +319,10 @@ class CapitalT(object):
         # IMPORTANT RESTRICTION: You are NOT permitted to add any instance
         # variables beyond  h_rect  and  v_rect, at any point of this exercise.
         #######################################################################
-        self.v_rect=self.v_rect
-        self.h_rect=self.clone().h_rect
+        a=CapitalT(self.h_rect.get_center(),self.h_rect.get_width(),self.v_rect.get_height(),self.v_rect.get_width()).set_colors(self.v_rect.fill_color,self.v_rect.outline_color)
+        a.set_colors(self.v_rect.fill_color,self.v_rect.outline_color)
+        return a
+
 
 
 # -----------------------------------------------------------------------------
