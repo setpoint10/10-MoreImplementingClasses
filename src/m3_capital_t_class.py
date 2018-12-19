@@ -74,6 +74,7 @@ def run_test_move_by():
     window = rg.RoseWindow(600, 400, 'Test 3 - Moving T')
     little_red_t = CapitalT(rg.Point(300, 50), 60, 80, 5)
     little_red_t.set_colors('red', 'gray')
+    little_red_t.attach_to(window)
     window.render(0.5)
     little_red_t.move_by(0, 100)
     window.render(0.5)
@@ -275,14 +276,10 @@ class CapitalT(object):
         #        Note: the pdf shows the different locations that
         #        the T moves through, but there is only one T at any moment.
         # ---------------------------------------------------------------------
-        fill_color=self.v_rect.fill_color
-        outline_color=self.v_rect.outline_color
-        self.v_rect=rg.Rectangle(rg.Point(self.v_rect.corner_1.x+dx,self.v_rect.corner_1.y+dy),
-                                 rg.Point(self.v_rect.corner_2.x+dx,self.v_rect.corner_2.y+dy))
-        self.h_rect = rg.Rectangle(rg.Point(self.h_rect.corner_1.x + dx, self.h_rect.corner_1.y + dy),
-                                  rg.Point(self.h_rect.corner_2.x + dx, self.h_rect.corner_2.y + dy))
-        self.v_rect.fill_color=self.h_rect.fill_color=fill_color
-        self.v_rect.outline_color=self.h_rect.outline_color=outline_color
+        self.v_rect.corner_1=rg.Point(self.v_rect.corner_1.x+dx,self.v_rect.corner_1.y+dy)
+        self.v_rect.corner_2=rg.Point(self.v_rect.corner_2.x+dx,self.v_rect.corner_2.y+dy)
+        self.h_rect.corner_1=rg.Point(self.h_rect.corner_1.x+dx,self.h_rect.corner_1.y+dy)
+        self.h_rect.corner_2=rg.Point(self.h_rect.corner_2.x+dx,self.h_rect.corner_2.y+dy)
 
 
 
@@ -319,8 +316,8 @@ class CapitalT(object):
         # IMPORTANT RESTRICTION: You are NOT permitted to add any instance
         # variables beyond  h_rect  and  v_rect, at any point of this exercise.
         #######################################################################
-        a=CapitalT(self.h_rect.get_center(),self.h_rect.get_width(),self.v_rect.get_height(),self.v_rect.get_width()).set_colors(self.v_rect.fill_color,self.v_rect.outline_color)
-        a.set_colors(self.v_rect.fill_color,self.v_rect.outline_color)
+        a=CapitalT(self.h_rect.get_center(),self.h_rect.get_width(),self.v_rect.get_height(),self.v_rect.get_width())
+        a.set_colors(self.h_rect.fill_color,self.h_rect.outline_color)
         return a
 
 
